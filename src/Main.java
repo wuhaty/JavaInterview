@@ -1,13 +1,8 @@
 import java.util.Random;
 
 import func.sort;
-import solution.BubbleSort;
-import solution.HeapSort;
-import solution.InsertSort;
-import solution.MergeSort;
 import solution.QuickSort;
-import solution.SelectionSort;
-import solution.ShellSort;
+
 
 public class Main {
     public static final int SCALE = 10;
