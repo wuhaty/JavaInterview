@@ -1,4 +1,4 @@
-package func;
+package Func;
 
 /**
  * Created by txn on 17/3/18.

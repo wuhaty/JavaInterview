@@ -1,10 +1,12 @@
+package BasicSortSolution;
+
 import java.util.Random;
 
-import func.sort;
-import solution.QuickSort;
+import Func.sort;
+import BasicSortSolution.QuickSort;
 
 
-public class Main {
+public class MainTestForSort {
     public static final int SCALE = 10;
     private static int[] genIntData() {
         int data[] = new int[SCALE];

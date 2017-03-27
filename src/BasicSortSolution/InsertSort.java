@@ -1,6 +1,6 @@
-package solution;
+package BasicSortSolution;
 
-import func.sort;
+import Func.sort;
 
 /**
  * Created by txn on 17/3/18.
