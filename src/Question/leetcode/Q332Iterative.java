@@ -11,6 +11,8 @@ public class Q332Iterative {
     public static void main(String argc[]){
         String tickets[][]= {{"JFK","KUL"},{"JFK","NRT"},{"NRT","JFK"}};
         System.out.println(findItinerary(tickets));
+        Stack<String> s = new Stack<>();
+
     }
 
     public static List<String> findItinerary(String[][] tickets) {
