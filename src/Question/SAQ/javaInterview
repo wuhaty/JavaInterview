@@ -1,4 +1,10 @@
 ● 集合类以及集合框架；HashMap与HashTable实现原理，线程安全性，hash冲突及处理算法；ConcurrentHashMap；
+    jdk1.8的桶索引位置通过对key的hashcode计算得到,算法有所变动。
+    1.8中优化了高位运算的算法，首先通过hashCode()的高16位异或低16位实现的：(h = k.hashCode()) ^ (h >>> 16),
+    这么做可以在数组table的length比较小的时候，也能保证考虑到高低Bit都参与到Hash的计算中，同时不会有太大的开销。
+    然后通过计算h & (table.length -1)来得到该对象的保存位,而HashMap底层数组的长度总是2的n次方，这是HashMap在速度上的优化。
+    当length总是2的n次方时，h& (length-1)运算等价于对length取模，也就是h%length，但是&比%具有更高的效率。
+
     jdk1.8中ConcurrentHashMap取消了原先分段锁的概念，转而对map中的每一条entry加锁，进一步提高了效率。
     步骤：若tab为空,初始化,
          若不为空查看tab[i]是否为空,为空则新建node,
@@ -22,13 +28,146 @@
         1.submit有返回值，而execute没有
         2.submit方便Exception处理(通过使用Future.get)
     结束后需要调用threadPool.shutdown()或shutdownNow()
-    shutdown() 方法在终止前允许执行以前提交的任务，而 shutdownNow() 方法阻止等待任务启动并试图停止当前正在执行的任务。
+    shutdown() 方法在终止前允许执行以前提交的任务，而 shutdownNow()方法阻止等待任务启动并试图停止当前正在执行的任务。
 
 ● 数据一致性如何保证;
     Synchronized关键字，类锁，方法锁，重入锁；
-    类锁:
-    方法锁:
+    synchronized
+    在修饰代码块的时候需要一个reference对象作为锁的对象.
+    在修饰方法的时候默认是当前对象作为锁的对象.
+    在修饰类时候默认是当前类的Class对象作为锁的对象.
+
+    类锁(synchronized修饰静态的方法或代码块):
+        一个class不论被实例化多少次，其中的静态方法和静态变量在内存中都只有一份。
+        所以，一旦一个静态的方法被申明为synchronized。此类所有的实例化对象在调用此方法，共用同一把锁，我们称之为类锁。
+
+        类锁只是一个概念上的东西，并不是真实存在的，它只是用来帮助我们理解锁定实例方法和静态方法的区别的。　
+        java类可能会有很多个对象，但是只有1个Class对象，也就是说类的不同实例之间共享该类的Class对象。
+        Class对象其实也仅仅是1个java对象，只不过有点特殊而已。由于每个java对象都有1个互斥锁，而类的静态方法是需要Class对象。
+        所以所谓的类锁，不过是Class对象的锁而已。获取类的Class对象有好几种，最简单的就是［类名.class］的方式。
+
+        ex1:
+        public class Test
+        {
+        　　 // 类锁：形式1
+            public static synchronized void Method1()
+            {
+                System.out.println(＂我是类锁一号＂);
+                try
+                {
+                    Thread.sleep(500);
+                }catch (InterruptedException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        ex2:
+        // 类锁：形式2
+        public void Method２()
+        {
+            synchronized (Test.class)
+            {
+                System.out.println(＂我是类锁二号＂);
+                try
+                {
+                    Thread.sleep(500);
+                } catch (InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+
+
+    方法锁(synchronized修饰非静态方法或代码块):
+        当一个对象中有synchronized method或synchronized block的时候调用此对象的同步方法或进入其同步区域时，就必须先获得对象锁。
+        如果此对象的对象锁已被其他调用者占用，则需要等待此锁被释放。java的所有对象都含有1个互斥锁，这个锁由JVM自动获取和释放。
+        线程进入synchronized方法的时候获取该对象的锁，当然如果已经有线程获取了这个对象的锁，那么当前线程会等待；
+        synchronized方法正常返回或者抛异常而终止，JVM会自动释放对象锁。
+
+        ex1:
+        public class Test
+        {
+        // 对象锁：形式1(方法锁)
+        public synchronized void Method1()
+        {
+            System.out.println(“我是对象锁也是方法锁”);
+            try
+            {
+                Thread.sleep(500);
+            } catch (InterruptedException e){
+                e.printStackTrace();
+            }
+        }
+
+        ex2:
+        public void Method2()
+        {
+            synchronized (this)
+            {
+                System.out.println("我是对象锁");
+                try
+                {
+                    Thread.sleep(500);
+                } catch (InterruptedException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+
     重入锁:
+
+    自旋锁:
+        自旋锁是采用让当前线程不停地的在循环体内执行实现的，当循环的条件被其他线程改变时 才能进入临界区。
+
+        ex1:
+        public class SpinLock {
+
+          private AtomicReference<Thread> sign =new AtomicReference<>();
+
+          public void lock(){
+            Thread current = Thread.currentThread();
+            while(!sign .compareAndSet(null, current)){
+            }
+          }
+
+          public void unlock (){
+            Thread current = Thread.currentThread();
+            sign .compareAndSet(current, null);
+          }
+        }
+
+        使用了CAS原子操作，lock函数将owner设置为当前线程，并且预测原来的值为空。unlock函数将owner设置为null，并且预测值为当前线程。
+        由于自旋锁只是将当前线程不停地执行循环体，不进行线程状态的改变，所以响应速度更快。
+        但当线程数不停增加时，性能下降明显，因为每个线程都需要执行，占用CPU时间。如果线程竞争不激烈，并且保持锁的时间段。适合使用自旋锁。
+
+        在自旋锁中 另有三种常见的锁形式:TicketLock ，CLHlock 和MCSlock
+        Ticket锁主要解决的是访问顺序的问题，主要的问题是在多核cpu上
+
+        ex1:
+        public class TicketLock {
+            private AtomicInteger                     serviceNum = new AtomicInteger();
+            private AtomicInteger                     ticketNum  = new AtomicInteger();
+            private static final ThreadLocal<Integer> LOCAL      = new ThreadLocal<Integer>();
+
+            public void lock() {
+                int myticket = ticketNum.getAndIncrement();
+                LOCAL.set(myticket);
+                while (myticket != serviceNum.get()) {
+                }
+
+            }
+
+            public void unlock() {
+                int myticket = LOCAL.get();
+                serviceNum.compareAndSet(myticket, myticket + 1);
+            }
+        }
+        每次都要查询一个serviceNum 服务号，影响性能（必须要到主内存读取，并阻止其他cpu修改）。
+
+
 
 
 ● Java中实现多态的机制是什么；
