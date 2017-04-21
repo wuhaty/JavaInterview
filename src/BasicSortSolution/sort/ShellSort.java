@@ -1,4 +1,4 @@
-package BasicSortSolution;
+package BasicSortSolution.sort;
 
 import Func.sort;
 

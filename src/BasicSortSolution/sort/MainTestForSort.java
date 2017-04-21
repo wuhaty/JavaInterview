@@ -1,9 +1,8 @@
-package BasicSortSolution;
+package BasicSortSolution.sort;
 
 import java.util.Random;
 
 import Func.sort;
-import BasicSortSolution.QuickSort;
 
 
 public class MainTestForSort {
