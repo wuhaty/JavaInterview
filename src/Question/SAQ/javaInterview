@@ -118,6 +118,10 @@
         }
 
     重入锁:
+        在JAVA环境下 ReentrantLock 和synchronized 都是 可重入锁
+        可重入锁记录每个线程对于对象方法请求的次数，若同一线程多次请求进入同一个锁,则计数减一,不会阻塞。
+        可重入锁最大的作用是避免死锁
+
 
     自旋锁:
         自旋锁是采用让当前线程不停地的在循环体内执行实现的，当循环的条件被其他线程改变时 才能进入临界区。
@@ -254,10 +258,60 @@
                 }
             }
 
+            每次申请锁将自身设置为尾节点,若有前驱节点,则默认状态为自旋,等待前驱节点完成任务后释放,
+            释放锁时查看当前节点next域是否为空,不为空则意味着有后继节点但还未连接上,需要自旋等待(while (currentNode.next == null))。
+            每次释放锁都是释放后继结点的lock域。
+            特点:显式队列,所有节点在本地内存上自旋。
+
 
 ● Java中实现多态的机制是什么；
 
 ● 如何将一个Java对象序列化到文件里；
+
+    使用ObjectOutputStream来写,使用不同的输出流构造该对象就写入到不同的流中(文件流就是FileOutputStream),
+    使用writeObject方法写。
+    使用ObjectInputStream来写,使用不同的输入流构造该对象就从不同的流中读入(文件流就是FileInputStream),
+    使用readObject方法读,需要强制转型。
+
+    ex写:
+    User user = new User();
+    user.setId(1);
+    user.setName("Mr XP.Wang");
+    try {
+        ObjectOutputStream os = new ObjectOutputStream(
+                new FileOutputStream("./out.txt"));
+        os.writeObject(user);// 将User对象写进文件
+        os.close();
+    } catch (FileNotFoundException e) {
+        e.printStackTrace();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+
+    ex读:
+    try {
+        ObjectInputStream is = new ObjectInputStream(new FileInputStream(
+                "./out.txt"));
+        User temp = (User) is.readObject();// 从流中读取User的数据
+        System.out.println(temp.getId());
+        System.out.println(temp.getName());
+        List tempList = (List) is.readObject();// 从流中读取List的数据
+        for (Iterator iterator = tempList.iterator(); iterator.hasNext();) {
+            System.out.print(iterator.next());
+        }
+        is.close();
+    } catch (FileNotFoundException e) {
+        e.printStackTrace();
+    } catch (IOException e) {
+        e.printStackTrace();
+    } catch (ClassNotFoundException e) {
+        e.printStackTrace();
+    }
+
+    *static成员不能序列化
+    *如果需要指定哪些字段序列化,可以使数据类实现Externalizable接口,可以通过writeObject()制定序列化哪些字段,
+     或者使用transient关键字修饰需要跳过的字段。
+    *使用Externalizable接口,使用writeExternal和readExternal来读写对象,并且实现Externalizable接口的对象会调用对象的默认构造方法
 
 ● 说说你对Java反射的理解； 答：Java 中的反射首先是能够获取到Java 中要反射类的字节码， 获取字节码有三种方法，
 
