@@ -5,7 +5,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Q139 {
+
     public static boolean wordBreak(String s, List<String> wordDict) {
+        boolean[] f = new boolean[s.length() + 1];
+        f[0] = true;
+        for(int i=1; i <= s.length(); i++){
+            for(int j=0; j < i; j++){
+                if(f[j] && wordDict.contains(s.substring(j, i))){
+                    f[i] = true;
+                    break;
+                }
+            }
+        }
+        return f[s.length()];
+    }
+
+
+    public static boolean wordBreakOri(String s, List<String> wordDict) {
 
         boolean dp[][] =new boolean[s.length()+1][s.length()+1];
         dp[0][0] = true;
@@ -30,9 +46,8 @@ public class Q139 {
 
     public static  void main(String argc[]){
         List<String> list =new ArrayList<>();
-        list.add("dog");
-        list.add("s");
-        list.add("gs");
-        System.out.println(wordBreak("dogs",list));
+        list.add("leet");
+        list.add("code");
+        System.out.println(wordBreak("leetcode",list));
     }
 }
