@@ -1,0 +1,24 @@
+使用ThreadPoolExecutor创建线程池：
+
+    初始化参数：
+        corePoolSize：线程池基本大小，即使有空闲线程也会创建新线程，直到达到了corePoolSize
+        runnableTaskQueue：任务队列。用于保存等待执行任务的阻塞队列。有以下几种：
+            ArrayBlockingQueue：基于数组结构的有界阻塞队列，按FIFO对元素排序
+            LinkedBlockingQueue：基于链表结构的阻塞队列，按FIFO对元素排序，吞吐量高于前者
+            SynchronousQueue：不存储元素的阻塞队列。每个插入操作在前一个移除操作上阻塞，吞吐量高于前者
+            PriorityBlockingQueue：具有优先级的无限阻塞队列
+        maximumPoolSize:线程池最大数量。如果队列慢了，且线程数小于最大线程数，则会再创建新线程执行任务。如果使用了无界队列则失效。
+        ThreadFactory：用于设置创建线程的工厂，设置线程名字结构
+        RejectedExecutionHandler：饱和策略。当队列和线程池都满了，则使用该策略处理新提交的任务。主要有
+            AbortPolicy：抛出异常
+            CallerRunsPolicy：使用调用者所在线程来运行任务
+            DiscardOldestPolicy：丢弃队列里最近的任务，并执行当前任务
+            DiscardPolicy：直接丢弃
+        keepAliveTime：线程活动保持时间。线程空闲时保持存活时间。
+        TimeUnit：线程活动保持时间的单位。
+
+    提交任务：
+        execute用于处理不需要返回值的，submit用于处理获取返回值的。使用future.get获取，会阻塞至返回。
+
+    关闭线程池：
+        shutdown & shutdownNow(任务不需要执行完)

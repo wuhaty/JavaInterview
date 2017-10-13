@@ -7,9 +7,33 @@ public class Q132 {
 
     public static void main(String argc[]){
         Q132 q = new Q132();
-        q.minCutNice("abbbccc");
+        q.minCut921("cbbbcc");
     }
 
+
+    public int minCut921(String str){
+        if (str.isEmpty()) return 0;
+
+        int n = str.length();
+        char s[] = str.toCharArray();
+        boolean dp[][] = new boolean[n][n];
+        for (int i = 0; i < n; i++) {
+            dp[i][i] = true;
+        }
+        int cut[] = new int[n];
+
+        for (int i = 1; i < n; i++) {
+            cut[i] = cut[i-1] +1;
+            for (int j = 0; j < i; j++) {
+                if (s[i] == s[j] && (i==(j+1) || dp[j+1][i-1])){
+                    dp[j][i] = true;
+                    cut[i] = Math.min(cut[i],Math.min(j==0?0:cut[j-1]+1,dp[0][j]?cut[j]+1:Integer.MAX_VALUE));
+                }
+            }
+        }
+
+        return cut[n-1];
+    }
 
     public int minCutNice(String str) {
         int n = str.length();
@@ -25,7 +49,6 @@ public class Q132 {
         }
         return cut[n];
     }
-
 
     public int minCut(String s) {
         if (s.isEmpty()) return 0;

@@ -2,6 +2,8 @@ package BasicSortSolution.sort;
 
 import Func.sort;
 
+import java.util.Arrays;
+
 /**
  * Created by txn on 17/3/18.
  * 堆排序
@@ -15,6 +17,12 @@ import Func.sort;
  *      不稳定
  */
 public class HeapSort implements sort {
+
+    public static void  main(String argc[]){
+        HeapSort h = new HeapSort();
+        int data[] = {5,6,2,1,4,3};
+        System.out.println(Arrays.toString(h.sort(data)));
+    }
 
     public int[] MaxHeapify(int data[],int heapSize,int index){
         int leftIndex = getLeftChild(index);
@@ -60,7 +68,7 @@ public class HeapSort implements sort {
 
     @Override
     public int[] sort(int[] data) {
-        for (int i = data.length/2; i >=0 ; i--) {
+        for (int i = (data.length-1)/2; i >=0 ; i--) {
             MaxHeapify(data,data.length,i);
         }
         return heapsort(data);
