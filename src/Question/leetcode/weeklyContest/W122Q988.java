@@ -1,15 +1,11 @@
 package Question.leetcode.weeklyContest;
 
+import Question.leetcode.common.TreeNode;
+
 /**
  * Created by gump on 2019/2/10.
  */
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-    TreeNode(int x) { val = x; }
-}
 
 public class W122Q988 {
 
