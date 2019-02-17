@@ -1,17 +1,14 @@
 package Question.leetcode;
 
+import Question.leetcode.common.TreeNode;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by gump on 2017/4/10.
  */
- class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-    TreeNode(int x) { val = x; }
-}
+
 public class Q95 {
 
 
