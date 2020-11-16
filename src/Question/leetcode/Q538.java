@@ -1,5 +1,7 @@
 package Question.leetcode;
 
+import Question.leetcode.common.TreeNode;
+
 /**
  * Created by gump on 2017/4/23.
  */

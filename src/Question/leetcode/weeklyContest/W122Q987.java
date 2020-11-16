@@ -1,16 +1,9 @@
 package Question.leetcode.weeklyContest;
 
+import Question.leetcode.common.TreeNode;
+
 import java.util.*;
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-
-    TreeNode(int x) {
-        val = x;
-    }
-}
 
 public class W122Q987 {
 

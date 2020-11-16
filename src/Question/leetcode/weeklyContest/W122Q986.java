@@ -1,14 +1,9 @@
 package Question.leetcode.weeklyContest;
 
+import Question.leetcode.common.Interval;
+
 import java.util.ArrayList;
 import java.util.List;
-
-class Interval {
-    int start;
-    int end;
-    Interval() { start = 0; end = 0; }
-    Interval(int s, int e) { start = s; end = e; }
-}
 
 
 public class W122Q986 {

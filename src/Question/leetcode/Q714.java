@@ -16,4 +16,23 @@ public class Q714 {
 
         return Math.max(sell[prices.length-1],0);
     }
+
+    public int maxProfit2(int[] prices, int fee) {
+        int n = prices.length;
+        int buy[] = new int[n];
+        int sell[] = new int[n];
+
+        buy[0] = -prices[0];
+        int maxbuy = -prices[0];
+        int maxsell = 0;
+
+        for (int i = 1; i < n; i++) {
+            int tempbuy = maxbuy;
+            buy[i] = maxsell-prices[i];
+            maxbuy = Math.max(buy[i],maxbuy);
+            sell[i] = tempbuy+prices[i]-fee;
+            maxsell = Math.max(sell[i],maxsell);
+        }
+        return maxsell;
+    }
 }
