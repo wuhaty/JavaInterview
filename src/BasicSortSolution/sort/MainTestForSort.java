@@ -27,7 +27,7 @@ public class MainTestForSort {
     public static void main(String[] args){
         int data[] = genIntData();
         printResult(data);
-        sort sortSolution = new QuickSort();
+        sort sortSolution = new HeapSort2();
         data = sortSolution.sort(data);
         printResult(data);
     }
