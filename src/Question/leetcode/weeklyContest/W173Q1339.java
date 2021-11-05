@@ -1,5 +1,7 @@
 package Question.leetcode.weeklyContest;
 
+import Question.leetcode.common.TreeNode;
+
 public class W173Q1339 {
 
     long total = 0;

@@ -1,5 +1,7 @@
 package Question.leetcode;
 
+import Question.leetcode.common.TreeNode;
+
 public class Q105 {
 
     int preindex = 0;
