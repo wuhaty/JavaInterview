@@ -1,7 +1,7 @@
 package Question.leetcode;
 
-import javafx.util.Pair;
 
+import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,15 +31,15 @@ public class Q799 {
 
 
     public double champagneTowerOri(int poured, int query_row, int query_glass) {
-        Map<Pair<Integer, Integer>, Double> m = new HashMap<>();
-        m.putIfAbsent(new Pair<>(0, 0), (double) poured);
+        Map<AbstractMap.SimpleEntry<Integer, Integer>, Double> m = new HashMap<>();
+        m.putIfAbsent(new AbstractMap.SimpleEntry<>(0, 0), (double) poured);
         double res = helper(m, poured, query_row, query_glass);
         return Math.min(res, 1);
     }
 
-    private double helper(Map<Pair<Integer, Integer>, Double> m, int poured, int query_row, int query_glass) {
-        if (m.containsKey(new Pair<>(query_row, query_glass))) {
-            return m.get(new Pair<>(query_row, query_glass));
+    private double helper(Map<AbstractMap.SimpleEntry<Integer, Integer>, Double> m, int poured, int query_row, int query_glass) {
+        if (m.containsKey(new AbstractMap.SimpleEntry<>(query_row, query_glass))) {
+            return m.get(new AbstractMap.SimpleEntry<>(query_row, query_glass));
         }
 
         if (query_row == 0) return poured;
@@ -50,7 +50,7 @@ public class Q799 {
         if (query_glass != 0) left = Math.max(0.5 * (helper(m, poured, query_row - 1, query_glass - 1) - 1), 0);
         if (query_glass != query_row) right = Math.max(0.5 * (helper(m, poured, query_row - 1, query_glass) - 1), 0);
 
-        m.putIfAbsent(new Pair<>(query_row, query_glass), left + right);
+        m.putIfAbsent(new AbstractMap.SimpleEntry<>(query_row, query_glass), left + right);
 
         return right + left;
     }

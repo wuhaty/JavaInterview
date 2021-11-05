@@ -1,6 +1,5 @@
 package Question.leetcode;
 
-import javafx.util.Pair;
 
 import java.util.HashMap;
 import java.util.Map;
