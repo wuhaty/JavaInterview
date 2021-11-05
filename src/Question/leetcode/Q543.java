@@ -39,4 +39,23 @@ public class Q543 {
 
         return Math.max(left,right);
     }
+
+    public int diameterOfBinaryTree2021(TreeNode root) {
+        if (root == null) return 0;
+
+        postOrder(root);
+        return max;
+    }
+
+    private int postOrder(TreeNode root) {
+        if (root == null) return 0;
+
+        int left = postOrder(root);
+        int right = postOrder(root);
+
+        int d = (left + right);
+        max = Math.max(d,max);
+
+        return Math.max(left,right) + 1;
+    }
 }

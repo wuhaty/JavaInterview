@@ -68,6 +68,9 @@ public class HeapSort implements sort {
 
     @Override
     public int[] sort(int[] data) {
+        //(data.length)/2 -1 the first non-leaf node
+
+
         for (int i = (data.length-1)/2; i >=0 ; i--) {
             MaxHeapify(data,data.length,i);
         }

@@ -15,4 +15,18 @@ public class Q100 {
         else
             return false;
     }
+
+    public boolean isSameTree2020(TreeNode p, TreeNode q) {
+        if (p == null && q == null) return true;
+
+
+        if (p != null && q!= null) {
+            if (p.val != q.val) {
+                return false;
+            }
+            return isSameTree2020(p.left,q.left) && isSameTree2020(p.right,q.right);
+        }
+
+        return false;
+    }
 }

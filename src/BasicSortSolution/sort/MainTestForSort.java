@@ -2,6 +2,12 @@ package BasicSortSolution.sort;
 
 import java.util.Random;
 
+import BasicSortSolution.sort.sortPractice.*;
+import BasicSortSolution.sort.sortPractice.BubbleSort;
+import BasicSortSolution.sort.sortPractice.HeapSort;
+import BasicSortSolution.sort.sortPractice.InsertSort;
+import BasicSortSolution.sort.sortPractice.MergeSort;
+import BasicSortSolution.sort.sortPractice.QuickSort;
 import Func.sort;
 
 
@@ -27,8 +33,8 @@ public class MainTestForSort {
     public static void main(String[] args){
         int data[] = genIntData();
         printResult(data);
-        sort sortSolution = new QuickSort();
-        data = sortSolution.sort(data);
+        sort sort = new QuickSort();
+        data = sort.sort(data);
         printResult(data);
     }
 }

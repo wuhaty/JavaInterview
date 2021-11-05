@@ -13,7 +13,7 @@ public class Q129 {
         TreeNode n1 = new TreeNode(0);
         TreeNode n2 = new TreeNode(1);
         n1.left = n2;
-        System.out.println(q.sumNumbers(n1));
+        System.out.println(q.sumNumbers2020(n2));
     }
 
     public int sumNumbers(TreeNode root) {
@@ -39,4 +39,19 @@ public class Q129 {
         }
         return left + right;
     }
+
+
+    public int sumNumbers2020(TreeNode root) {
+        return helper2020(root,0);
+    }
+
+    private int helper2020(TreeNode root, Integer sum) {
+        if (root == null) return 0;
+        sum += root.val;
+        if (root.left == null && root.right == null) return sum;
+
+        return helper2020(root.left,10*sum) + helper2020(root.right,10*sum);
+    }
+
+
 }

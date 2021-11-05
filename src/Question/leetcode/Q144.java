@@ -46,4 +46,16 @@ public class Q144 {
 
         System.out.println(q.preorderTraversal(n1).toArray());
     }
+
+
+    List<Integer> res = new LinkedList<>();
+
+    public List<Integer> preorderTraversal2021(TreeNode root) {
+        if (root == null) return res;
+
+        res.add(root.val);
+        preorderTraversal(root.left);
+        preorderTraversal(root.right);
+        return res;
+    }
 }

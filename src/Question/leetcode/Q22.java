@@ -12,7 +12,8 @@ public class Q22 {
 
     public static void main(String argc[]) {
         Q22 q = new Q22();
-        q.generateParenthesis(3);
+        List<String> res = q.generateParenthesis2021Backtrack(2);
+        System.out.print(res);
     }
 
     public List<String> generateParenthesis(int n) {
@@ -79,5 +80,53 @@ public class Q22 {
             lists.add(list);
         }
         return lists.get(lists.size() - 1);
+    }
+
+    public List<String> generateParenthesis2021DP(int n) {
+        List<List<String>> res = new LinkedList<>();
+        res.add(Collections.singletonList(""));
+
+        //loop n times
+        for (int i = 1; i <= n; i++) {
+
+            List<String> tmp = new LinkedList<>();
+            for (int j = 0; j < i; j++) {
+                for (String first : res.get(j)) {
+                    for (String second: res.get(i-j-1)) {
+                        tmp.add("(" + first + ")" + second);
+                    }
+                }
+            }
+
+            res.add(tmp);
+        }
+
+        return res.get(n-1);
+    }
+
+
+    public List<String> generateParenthesis2021Backtrack(int n) {
+        List<String> res = new LinkedList<>();
+        backtrack(res,0,0,0,n,new StringBuilder());
+        return res;
+    }
+
+    private void backtrack(List<String> res, int i, int open, int close, int n, StringBuilder sb) {
+        if (i >= 2*n) {
+            res.add(sb.toString());
+        }
+
+        if (open<n) {
+            sb.append("(");
+            backtrack(res,i+1,open+1,close,n,sb);
+            sb.deleteCharAt(i);
+        }
+
+        if (close<open) {
+            sb.append(")");
+            backtrack(res,i+1,open,close+1,n,sb);
+            sb.deleteCharAt(i);
+        }
+
     }
 }

@@ -2,10 +2,8 @@ package Question.leetcode;
 
 import Question.leetcode.common.TreeNode;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by gump on 2017/10/30.
@@ -19,7 +17,7 @@ public class Q508 {
 //        TreeNode n3 = new TreeNode(-5);
 //        n1.left=n2;
 //        n1.right=n3;
-        q.findFrequentTreeSum(n1);
+        q.findFrequentTreeSum2021(n1);
     }
 
     public int[] findFrequentTreeSum(TreeNode root) {
@@ -60,5 +58,34 @@ public class Q508 {
             container.add(result);
         }
         return result;
+    }
+
+
+    public int[] findFrequentTreeSum2021(TreeNode root){
+        Map<Integer,Integer> occurance = new HashMap<>();
+        List<Integer> res = new LinkedList<>();
+        postOrder(root,occurance,res);
+
+        return res.stream().mapToInt(Integer::valueOf).toArray();
+    }
+
+    private Integer postOrder(TreeNode root, Map<Integer, Integer> occurance,List<Integer> res) {
+        if (root == null) return 0;
+
+        Integer cur = root.val;
+        Integer left = postOrder(root.left,occurance,res);
+        Integer right = postOrder(root.right,occurance,res);
+
+        Integer s = (cur + left + right);
+        occurance.put(s,occurance.getOrDefault(s,0) +1);
+
+        if (occurance.get(s) > max) {
+            max = occurance.get(s);
+            res.clear();
+            res.add(s);
+        }else if (occurance.get(s).equals(max)) {
+            res.add(s);
+        }
+        return s;
     }
 }

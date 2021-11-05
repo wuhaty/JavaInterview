@@ -51,9 +51,6 @@ public class Q108 {
         return head;
     }
 
-
-
-
     public TreeNode sortedArrayToBSTOri(int[] nums) {
         return construct(nums,0,nums.length-1);
     }
@@ -65,6 +62,25 @@ public class Q108 {
         TreeNode root = new TreeNode(nums[mid]);
         root.left = construct(nums,i,mid-1);
         root.right = construct(nums,mid+1,j);
+
+        return root;
+    }
+
+
+
+    public TreeNode sortedArrayToBST2021(int[] nums) {
+        return construct2021(nums,0,nums.length-1);
+    }
+
+    private TreeNode construct2021(int[] nums, int l, int r) {
+        if (l>r || l<0 || r>=nums.length) return null;
+        if (l==r) return new TreeNode(nums[l]);
+
+
+        int mid = (int) Math.ceil((l+r)/2);
+        TreeNode root = new TreeNode(nums[mid]);
+        root.left = construct2021(nums,l,mid-1);
+        root.right = construct2021(nums,mid+1,r);
 
         return root;
     }

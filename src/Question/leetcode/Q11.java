@@ -18,4 +18,21 @@ public class Q11 {
         }
         return max;
     }
+
+    public int maxArea2021(int[] height) {
+        int score = 0;
+
+        int l = 0, r = height.length-1;
+
+        while (l<r) {
+            score = Math.max(score,(r-l)*Math.min(height[l],height[r]));
+
+            if (height[r] < height[l]) {
+                r--;
+            }else{
+                l++;
+            }
+        }
+        return score;
+    }
 }

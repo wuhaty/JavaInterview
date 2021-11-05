@@ -5,6 +5,7 @@ import Question.leetcode.common.TreeNode;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 /**
  * Created by gump on 2017/5/5.
@@ -30,5 +31,30 @@ public class Q102 {
         }
 
         return result;
+    }
+
+
+    public List<List<Integer>> levelOrder2020(TreeNode root) {
+        Queue<TreeNode> q = new LinkedList<>();
+        List<List<Integer>> res = new LinkedList<>();
+
+        if (root == null) return res;
+        q.offer(root);
+
+        while (!q.isEmpty()) {
+            int s = q.size();
+            List<Integer> l = new LinkedList<>();
+            while (s>0){
+                TreeNode n = q.poll();
+                l.add(n.val);
+                if (n.left != null) q.offer(n.left);
+                if (n.right != null) q.offer(n.right);
+                s--;
+            }
+
+            res.add(l);
+        }
+
+        return res;
     }
 }

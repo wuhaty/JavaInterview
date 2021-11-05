@@ -10,7 +10,7 @@ import Func.sort;
  *      最好:O(nlogn)
  *      平均:O(nlogn)
  * 空间复杂度:
- *      O(nlogn)
+ *      O(logn)
  * 稳定性:
  *      不稳定
  */

@@ -18,7 +18,7 @@ public class Q17 {
 
     public static void main(String argc[]) {
         Q17 q = new Q17();
-        System.out.println(q.letterCombinations("23"));
+        System.out.println(q.letterCombinations2021("23"));
     }
 
     public List<String> letterCombinations(String digits) {
@@ -68,5 +68,28 @@ public class Q17 {
 
         container.forEach(it -> result.add(it.toString()));
         return result;
+    }
+
+    public List<String> letterCombinations2021(String digits) {
+        List<String> res = new LinkedList<>();
+        char[] cs = digits.toCharArray();
+        if(cs.length ==0) return res;
+
+        dfs(cs,0,res,new StringBuilder());
+
+        return res;
+    }
+
+    private void dfs(char[] cs, int i, List<String> res,StringBuilder sb) {
+        if (i>=cs.length) {
+            res.add(sb.toString());
+            return;
+        }
+
+        for (char c:reflect[cs[i]-'0']) {
+            sb.append(c);
+            dfs(cs,i+1,res,sb);
+            sb.deleteCharAt(i);
+        }
     }
 }

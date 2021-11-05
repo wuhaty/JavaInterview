@@ -61,9 +61,33 @@ public class Q147 {
         return helper.next;
     }
 
+
+    private ListNode insertionSortList2020(ListNode head) {
+        if (head == null) return head;
+
+        ListNode helper = new ListNode(Integer.MIN_VALUE);
+        ListNode pre = helper;
+        ListNode cur = head;
+        ListNode next = null;
+
+        while (cur != null){
+            next = cur.next;
+
+            while (pre.next != null && pre.next.val < cur.val) {
+                pre = pre.next;
+            }
+
+            cur.next = pre.next;
+            pre.next = cur;
+            pre = helper;
+            cur = next;
+        }
+        return helper.next;
+    }
+
     public static void main(String argc[]){
-        ListNode n1 = new ListNode(3);
-        ListNode n2 = new ListNode(4);
+        ListNode n1 = new ListNode(4);
+        ListNode n2 = new ListNode(2);
         ListNode n3 = new ListNode(1);
         n1.next=n2;
         n2.next=n3;

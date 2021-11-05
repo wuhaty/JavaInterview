@@ -29,4 +29,21 @@ public class BubbleSort implements sort {
         }
         return data;
     }
+
+
+
+    public int[] sort2(int[] data) {
+        int n = data.length;
+        for (int i = n-1; i > 0; i--) {
+            for (int j = 0; j < i; j++) {
+                if (data[j+1] < data[j]) {
+                    int temp = data[j];
+                    data[j] = data[j+1];
+                    data[j+1] = temp;
+                }
+            }
+        }
+
+        return data;
+    }
 }

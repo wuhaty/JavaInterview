@@ -7,34 +7,63 @@ import java.util.*;
  * Created by gump on 2017/4/22.
  */
 
-class UndirectedGraphNode {
-    int label;
-    List<UndirectedGraphNode> neighbors;
-    UndirectedGraphNode(int x) { label = x; neighbors = new ArrayList<UndirectedGraphNode>(); }
+class Node {
+    public int val;
+    public List<Node> neighbors;
+    public Node() {
+        val = 0;
+        neighbors = new ArrayList<Node>();
+    }
+    public Node(int _val) {
+        val = _val;
+        neighbors = new ArrayList<Node>();
+    }
+    public Node(int _val, ArrayList<Node> _neighbors) {
+        val = _val;
+        neighbors = _neighbors;
+    }
 }
 public class Q133 {
 
-    public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
+    public Node cloneGraph(Node node) {
         if(node == null )return null;
 
-        LinkedList<UndirectedGraphNode> q = new LinkedList<>();
-        Map<Integer,UndirectedGraphNode> m = new HashMap<>();
+        LinkedList<Node> q = new LinkedList<>();
+        Map<Integer,Node> m = new HashMap<>();
 
-        UndirectedGraphNode result = new UndirectedGraphNode(node.label);
-        m.put(result.label,result);
+        Node result = new Node(node.val);
+        m.put(result.val,result);
         q.offer(node);
 
         while (!q.isEmpty()){
-            UndirectedGraphNode it = q.poll();
-            for (UndirectedGraphNode i:it.neighbors) {
-                if(!m.containsKey(i.label)){
-                    m.put(i.label,new UndirectedGraphNode(i.label));
+            Node it = q.poll();
+            for (Node i:it.neighbors) {
+                if(!m.containsKey(i.val)){
+                    m.put(i.val,new Node(i.val));
                     q.offer(i);
                 }
-                m.get(it.label).neighbors.add(m.get(i.label));
+                m.get(it.val).neighbors.add(m.get(i.val));
             }
         }
 
         return result;
     }
+
+    Map<Integer,Node> m = new HashMap<>();
+
+    public Node cloneGraph2021(Node node) {
+        if (node == null) return null;
+
+        if (m.containsKey(node.val)) return m.get(node.val);
+
+        Node clone = new Node(node.val);
+        m.put(node.val,clone);
+
+        for (Node n:node.neighbors) {
+            clone.neighbors.add(cloneGraph2021(n));
+        }
+        return clone;
+    }
+
+
 }
