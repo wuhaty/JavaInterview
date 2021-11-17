@@ -16,7 +16,7 @@ public class Q2 {
         l2.next.next.next = new ListNode(9);
 
         Q2 q = new Q2();
-        q.addTwoNumbers(l1,l2);
+        q.addTwoNumbers2021(l1,l2);
 
     }
 
@@ -76,5 +76,32 @@ public class Q2 {
         }
 
         return head;
+    }
+
+    public ListNode addTwoNumbers2021(ListNode l1, ListNode l2) {
+        int carrier = 0;
+        ListNode pre = null;
+        ListNode res = l2;
+        while (carrier != 0 || l1 != null){
+            if (l2 == null) {
+                l2 = new ListNode(0);
+                pre.next = l2;
+            }
+
+            l2.val += ((l1==null?0:l1.val) + carrier);
+            if (l2.val >= 10) {
+                l2.val = (l2.val % 10);
+                carrier = 1;
+            }else {
+                carrier = 0;
+            }
+            pre = l2;
+            l2 = l2.next;
+            if (l1 != null) {
+                l1 = l1.next;
+            }
+        }
+
+        return res;
     }
 }
