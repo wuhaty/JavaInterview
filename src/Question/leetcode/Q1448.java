@@ -24,4 +24,20 @@ public class Q1448 {
         helper(root.left,max);
         helper(root.right,max);
     }
+
+    public int goodNodes2021(TreeNode root) {
+        int max = Integer.MIN_VALUE;
+
+        helper2021(root,max);
+        return count;
+    }
+
+    private void helper2021(TreeNode root, int max) {
+        if (root == null) return;
+
+        if (root.val >= max) count ++;
+
+        helper2021(root.left,Math.max(max,root.val));
+        helper2021(root.right,Math.max(max,root.val));
+    }
 }

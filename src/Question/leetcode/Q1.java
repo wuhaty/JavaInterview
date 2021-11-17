@@ -20,4 +20,21 @@ public class Q1 {
         }
         return result;
     }
+
+    public int[] twoSum2021(int[] nums, int target) {
+        Map<Integer,Integer> m = new HashMap<>();
+        int[] res = new int[2];
+
+        for (int i = 0; i < nums.length; i++) {
+            int j = target-nums[i];
+            if (m.containsKey(j) && i != m.get(j)) {
+                res[0] = i;
+                res[1] = m.get(j);
+                return res;
+            }
+            m.put(nums[i],i);
+        }
+
+        return res;
+    }
 }

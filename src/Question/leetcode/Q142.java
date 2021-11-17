@@ -29,4 +29,30 @@ public class Q142 {
 
         return s;
     }
+
+    public ListNode detectCycle2021(ListNode head) {
+        ListNode s = head;
+        ListNode f = head;
+
+        while (s!=null && f!=null) {
+            s = s.next;
+
+            if (f.next !=null) {
+                f = f.next.next;
+                if (f!= null && f==s) {
+                    break;
+                }
+            }
+        }
+
+        if (f != s) return null;
+
+        s = head;
+
+        while (s!=f){
+            s = s.next;
+            f = f.next;
+        }
+        return s;
+    }
 }

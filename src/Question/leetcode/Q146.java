@@ -1,8 +1,6 @@
 package Question.leetcode;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by gump on 2021/6/13.
@@ -11,12 +9,21 @@ public class Q146 {
 
     public static void main(String[] args) {
         Q146 q = new Q146();
-        LRUCache lruCache = new LRUCache(2);
+        LRUCache2021 lruCache = new LRUCache2021(2);
+//        lruCache.put(1,1);
+//        lruCache.put(2,2);
+//        lruCache.get(1);
+//        lruCache.put(3,3);
+//        lruCache.get(2);
         lruCache.put(1,1);
         lruCache.put(2,2);
         lruCache.get(1);
         lruCache.put(3,3);
         lruCache.get(2);
+        lruCache.put(4,4);
+        lruCache.get(1);
+        lruCache.get(3);
+        lruCache.get(4);
     }
 
 
@@ -161,6 +168,46 @@ public class Q146 {
                 DNode target = new DNode(key,value);
                 m.put(key,target);
                 addToHead(target);
+            }
+        }
+    }
+
+    static class LRUCache2021 {
+        Map<Integer,Integer> m = new HashMap<>();
+        Deque<Integer> q = new LinkedList<>();
+        int size = 0;
+        int length = 0;
+        public LRUCache2021(int capacity) {
+            size = capacity;
+        }
+
+        public int get(int key) {
+            if (m.containsKey(key)){
+                q.remove(key);
+                q.addFirst(key);
+                return m.get(key);
+            }else {
+                return -1;
+            }
+        }
+
+        public void put(int key, int value) {
+            if (m.containsKey(key)) {
+                m.put(key,value);
+                q.remove(key);
+                q.addFirst(key);
+            }else {
+                if (q.size() >= size) {
+                    //need to abandon the queue tail
+                    Integer last = q.getLast();
+                    m.remove(last);
+                    q.removeLast();
+                    m.put(key,value);
+                    q.addFirst(key);
+                }else{
+                    q.addFirst(key);
+                    m.put(key,value);
+                }
             }
         }
     }
