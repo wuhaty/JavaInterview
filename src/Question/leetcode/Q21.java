@@ -55,4 +55,53 @@ public class Q21 {
 
         return h.next;
     }
+
+    public ListNode mergeTwoLists2021_2(ListNode l1, ListNode l2) {
+        ListNode pre = new ListNode(0);
+        ListNode res = pre;
+
+        while (l1 != null || l2 != null) {
+            if (l2 == null) {
+                pre.next = l1;
+                pre = l1;
+                l1 = l1.next;
+                continue;
+            }
+
+            if (l1 == null) {
+                pre.next = l2;
+                pre = l2;
+                l2 = l2.next;
+                continue;
+            }
+
+            if (l1.val < l2.val){
+                pre.next = l1;
+                pre = l1;
+                l1 = l1.next;
+            }else {
+                pre.next = l2;
+                pre = l2;
+                l2 = l2.next;
+            }
+        }
+        return res.next;
+    }
+
+    public ListNode mergeTwoLists2021_recursive(ListNode l1, ListNode l2) {
+        if (l1 == null) {
+            return l2;
+        }
+        if (l2 == null) {
+            return l1;
+        }
+
+        if (l1.val < l2.val) {
+            l1.next = mergeTwoLists2021_recursive(l1.next,l2);
+            return l1;
+        }else {
+            l2.next = mergeTwoLists2021_recursive(l1,l2.next);
+            return l2;
+        }
+    }
 }

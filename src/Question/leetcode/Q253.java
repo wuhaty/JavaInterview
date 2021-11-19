@@ -44,4 +44,20 @@ public class Q253 {
         }
         return allocator.size();
     }
+
+    public int minMeetingRooms2021(int[][] intervals) {
+        Arrays.sort(intervals, Comparator.comparingInt(o -> o[0]));
+        PriorityQueue<Integer> q = new PriorityQueue<>(Comparator.comparingInt(o->o));
+
+        q.offer(intervals[0][1]);
+
+        for (int i = 1; i < intervals.length; i++) {
+            if (intervals[i][0]>q.peek()) {
+                q.poll();
+            }
+            q.add(intervals[i][1]);
+        }
+
+        return q.size();
+    }
 }

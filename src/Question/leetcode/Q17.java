@@ -19,7 +19,7 @@ public class Q17 {
 
     public static void main(String argc[]) {
         Q17 q = new Q17();
-        System.out.println(q.letterCombinations2021("23"));
+        System.out.println(q.letterCombinations2021_queue("23"));
     }
 
     public List<String> letterCombinations(String digits) {
@@ -116,4 +116,56 @@ public class Q17 {
         }
     }
 
+    public List<String> letterCombinations2021_backtrack(String digits) {
+        List<String> res = new LinkedList<>();
+        if (null == digits || digits.isEmpty() ) return res;
+
+
+        backtrack(new StringBuilder(),digits,res,0);
+        return res;
+    }
+
+    private void backtrack(StringBuilder sb, String digits, List<String> res, int i) {
+        if (i == digits.length()){
+            res.add(sb.toString());
+            return;
+        }
+
+        int index = digits.charAt(i)-'0';
+        for (int j = 0; j < reflect[index].length; j++) {
+            sb.append(reflect[index][j]);
+            backtrack(sb,digits,res,i+1);
+            sb.deleteCharAt(sb.length()-1);
+        }
+    }
+
+    public List<String> letterCombinations2021_queue(String digits){
+        List<String> res = new LinkedList<>();
+        if (digits==null || digits.isEmpty()) return res;
+
+        Queue<String> q = new LinkedList<>();
+        char cs[] = digits.toCharArray();
+
+        for (int i = 0; i < cs.length; i++) {
+            if (q.size()==0){
+                for (int j = 0; j < reflect[cs[i]-'0'].length; j++) {
+                    q.offer(reflect[cs[i]-'0'][j]+"");
+                }
+            }else{
+                int index = cs[i]-'0';
+                int size = q.size();
+                int count = 0;
+                while (count<size) {
+                    String s = q.poll();
+
+                    for (int j = 0; j < reflect[cs[i]-'0'].length; j++) {
+                        q.offer(s+reflect[cs[i]-'0'][j]);
+                    }
+                    count++;
+                }
+            }
+        }
+        res.addAll(q);
+        return res;
+    }
 }

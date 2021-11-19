@@ -7,7 +7,10 @@ public class Q8 {
 
     public static void main(String argc[]){
         Q8 q =new Q8();
-        System.out.println(q.myAtoi2021("-91283472332"));
+//        System.out.println(q.myAtoi2021_2("-91283472332"));
+//        System.out.println(q.myAtoi2021_2("  -42"));
+//        System.out.println(q.myAtoi2021_2("-000000000000001"));
+        System.out.println(q.myAtoi2021_2(" "));
     }
 
 
@@ -72,5 +75,33 @@ public class Q8 {
          }
 
         return sign * res;
+    }
+
+    public int myAtoi2021_2(String s) {
+        if (s==null || s.isEmpty()) return 0;
+
+        s = s.trim();
+        char cs[] = s.toCharArray();
+        boolean neg = false;
+        int index = 0;
+        if (cs.length > 0 && (cs[0] == '-' || cs[0] == '+')) {
+            index++;
+            neg = (cs[0] == '-');
+        }
+
+        int res = 0;
+
+        for (; index < cs.length; index++) {
+            if (cs[index] < '0' || cs[index] > '9') return neg?-res:res;
+
+            int input = cs[index]-'0';
+
+            if (!neg && res > (Integer.MAX_VALUE-input)/10) return Integer.MAX_VALUE;
+            if (neg && res > (Integer.MAX_VALUE-input)/10) return Integer.MIN_VALUE;
+
+            res = res * 10 + input;
+        }
+
+        return neg?-res:res;
     }
 }
