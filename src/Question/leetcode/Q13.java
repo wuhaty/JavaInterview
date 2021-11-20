@@ -33,4 +33,26 @@ public class Q13 {
         }
         return 0;
     }
+
+    public int romanToInt_2021(String s) {
+        if (s == null || s.isEmpty()) return 0;
+
+        char[] cs = s.toCharArray();
+        int res = 0;
+        int minus = 0;
+        for (int i = 0; i < cs.length; i++) {
+            int cur = toNumber(cs[i]);
+
+            if (i+1 < cs.length && ((cs[i] == 'I' && (cs[i+1] == 'V' || cs[i+1] == 'X'))
+                || (cs[i] == 'X' && (cs[i+1] == 'L' || cs[i+1] == 'C'))
+                || (cs[i] == 'C' && (cs[i+1] == 'D' || cs[i+1] == 'M')))){
+                minus = -cur;
+            }else {
+                res += (cur+minus);
+                minus = 0;
+            }
+        }
+
+        return res;
+    }
 }

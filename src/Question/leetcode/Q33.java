@@ -42,7 +42,7 @@ public class Q33 {
         return -1;
     }
 
-    public int search(int[] nums, int target) {
+    public int search_2021(int[] nums, int target) {
         int l = 0 , r = nums.length - 1;
 
         while (l <= r) {

@@ -17,4 +17,15 @@ public class Q53 {
         return max;
     }
 
+    public int maxSubArray_2021(int[] nums) {
+        int max = Integer.MIN_VALUE;
+        int pre = 0;
+
+        for (int i = 0; i < nums.length; i++) {
+            pre = Math.max(pre + nums[i],nums[i]);
+            max = Math.max(pre,max);
+        }
+
+        return max;
+    }
 }

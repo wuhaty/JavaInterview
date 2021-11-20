@@ -1,9 +1,6 @@
 package Question.leetcode;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by gump on 2017/5/24.
@@ -27,5 +24,20 @@ public class Q49 {
         List<List<String>> result = new LinkedList<>();
         result.addAll(map.values());
         return result;
+    }
+
+
+    public List<List<String>> groupAnagrams_2021(String[] strs) {
+        Map<String,List<String>> m = new HashMap<>();
+
+        for (int i = 0; i < strs.length; i++) {
+            char[] cs = strs[i].toCharArray();
+            Arrays.sort(cs);
+            String s = new String(cs);
+            m.putIfAbsent(new String(cs),new LinkedList<>());
+            m.get(s).add(strs[i]);
+        }
+
+        return new LinkedList<>(m.values());
     }
 }

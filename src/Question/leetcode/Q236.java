@@ -41,4 +41,17 @@ public class Q236 {
 
         return (inLeft == null)? inRight:inLeft;
     }
+
+    public TreeNode lowestCommonAncestor2021_2(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null || root == p || root == q) return root;
+
+        TreeNode inLeft = lowestCommonAncestor2021_2(root.left,p,q);
+        TreeNode inRight = lowestCommonAncestor2021_2(root.right,p,q);
+
+        if (inLeft != null && inRight != null){
+            return root;
+        }
+
+        return inLeft == null? inRight:inLeft;
+    }
 }
