@@ -6,8 +6,8 @@ package Question.leetcode;
 public class Q75 {
     public static void main(String argc[]){
         Q75 q = new Q75();
-        int test[]= {0,1,0,2,0};
-        q.sortColors(test);
+        int test[]= {1,0,1,0};
+        q.sortColors2021(test);
         System.out.print(test);
     }
 
@@ -23,6 +23,24 @@ public class Q75 {
                 nums[++index1] = 1;
             }else if(nums[i]==2 ){
                 nums[++index2] = 2;
+            }
+        }
+    }
+
+
+    public void sortColors2021(int[] nums) {
+        int l=0 , r=nums.length-1;
+
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == 0){
+                nums[i] = nums[l];
+                nums[l] = 0;
+                l++;
+            }else if (nums[i] == 2){
+                nums[i] = nums[r];
+                nums[r] = 2;
+                r--;
+                if(nums[i] != 1) i--;
             }
         }
     }

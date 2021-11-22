@@ -61,4 +61,44 @@ public class Q116 {
         return root;
     }
 
+
+    public Node connect2021(Node root) {
+        if (root == null) return root;
+        Queue<Node> q = new LinkedList<>();
+        q.offer(root);
+
+        while (!q.isEmpty()) {
+            int size = q.size();
+            Node pre = null;
+            while (size > 0){
+                Node n = q.poll();
+
+                if (pre != null) {
+                    pre.next = n;
+                }
+                pre = n;
+                size--;
+                if (n.left != null) q.offer(n.left);
+                if (n.right != null) q.offer(n.right);
+            }
+        }
+
+        return root;
+    }
+
+    public Node connect2021Recur(Node root) {
+        if (root == null || root.left == null || root.right == null ) {
+            return root;
+        }
+
+        root.left.next  = root.right;
+
+        if (root.next != null){
+            root.right.next = root.next.left;
+        }
+
+        connect2021Recur(root.left);
+        connect2021Recur(root.right);
+        return root;
+    }
 }

@@ -16,6 +16,21 @@ public class Q277 {
         return candidate;
     }
 
+    public int findCelebrity2021(int n) {
+        int candidate = 0;
+        for (int i = 0; i < n; i++) {
+            if (i != candidate && knows(candidate,i)){
+                candidate = i;
+            }
+        }
+
+        for (int i = 0; i < n; i++) {
+            if (candidate != i && (!knows(i,candidate) || knows(candidate,i))) return -1;
+        }
+
+        return candidate;
+    }
+
     public boolean knows(int a, int b){
         //mock function
         return true;

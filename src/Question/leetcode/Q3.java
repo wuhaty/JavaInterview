@@ -12,7 +12,7 @@ public class Q3 {
 
     public  static void main (String argc[]){
         Q3 q = new Q3();
-        System.out.println(q.lengthOfLongestSubstring("pwwkew"));
+        System.out.println(q.lengthOfLongestSubstring2021("pwwkew"));
     }
 
 
@@ -30,8 +30,46 @@ public class Q3 {
         return max;
     }
 
+    public int lengthOfLongestSubstring2021Ori(String s) {
+        HashSet<Character> set = new HashSet<>();
+        char[] cs = s.toCharArray();
+        int res = 0;
+        int pre = 0;
+        int i = 0;
+        while (i < cs.length){
+            if (set.contains(cs[i])) {
+                //cs[i] cannot be added , find the next start pos
+                for (; pre < i; pre++) {
+                    if (cs[pre] == cs[i]) break;
+                }
+                set.clear();
+                i = pre +1;
+                pre ++;
+            }else {
+                set.add(cs[i]);
+                res = Math.max(res,set.size());
+                i ++;
+            }
+        }
+        return res;
+    }
 
+    public int lengthOfLongestSubstring2021(String s) {
+        Map<Character,Integer> m = new HashMap<>();
+        int res = 0;
+        char[] cs = s.toCharArray();
 
+        for (int i = 0,pre=0; i < cs.length; i++) {
+            if (m.containsKey(cs[i])) {
+                //violation at index i, find next start point
+                pre = Math.max(pre,m.get(cs[i])+1);
+            }
+            m.put(cs[i],i);
+            res = Math.max(res, i - pre + 1);
+        }
+
+        return res;
+    }
 
     public int lengthOfLongestSubstringOri(String s) {
         char input[] = s.toCharArray();
