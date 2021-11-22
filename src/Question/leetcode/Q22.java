@@ -12,7 +12,7 @@ public class Q22 {
 
     public static void main(String argc[]) {
         Q22 q = new Q22();
-        List<String> res = q.generateParenthesis2021Backtrack(2);
+        List<String> res = q.generateParenthesisDP(3);
         System.out.print(res);
     }
 
@@ -128,5 +128,30 @@ public class Q22 {
             sb.deleteCharAt(i);
         }
 
+    }
+
+    public List<String> generateParenthesis2021_2(int n) {
+        List<String> res = new LinkedList<>();
+        backtrack2021(res,0,0,n,new StringBuilder());
+        return res;
+    }
+
+    private void backtrack2021(List<String> res, int l, int r, int n, StringBuilder sb) {
+        if (l == n && r== n) {
+            res.add(sb.toString());
+            return;
+        }
+
+        if (l<n){
+            sb.append('(');
+            backtrack2021(res,l+1,r,n,sb);
+            sb.deleteCharAt(sb.length()-1);
+        }
+
+        if (r<l) {
+            sb.append(')');
+            backtrack2021(res,l,r+1,n,sb);
+            sb.deleteCharAt(sb.length()-1);
+        }
     }
 }

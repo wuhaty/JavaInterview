@@ -66,10 +66,10 @@ public class Q348 {
     int y = 0;
 
 
-    public Q348(int n) {
-        row = new int[n];
-        col = new int[n];
-    }
+//    public Q348_ori(int n) {
+//        row = new int[n];
+//        col = new int[n];
+//    }
 
     /** Player {player} makes a move at ({row}, {col}).
      @param row The row of the board.
@@ -90,6 +90,45 @@ public class Q348 {
         if (Math.abs(row[r]) == n || Math.abs(col[c]) == n || Math.abs(x) == n || Math.abs(y) == n) {
             return player;
         }
+        return 0;
+    }
+
+    int[][] input;
+
+    public Q348(int n) {
+        input = new int[n][n];
+    }
+
+    public int move_2021(int row, int col, int player) {
+        input[row][col] = player;
+
+        //row check
+        for (int i = 0; i < input.length; i++) {
+            if (i == (input.length-1) && input[row][i] == player) return 1;
+            if (input[row][i] != player) break;
+        }
+
+        //column check
+        for (int i = 0; i < input.length; i++) {
+            if (i == (input.length-1) && input[i][col] == player) return 1;
+            if (input[i][col] != player) break;
+        }
+
+        //x check
+        if (row == col ) {
+            for (int i = 0; i < input.length; i++) {
+                if (i == (input.length-1) && input[i][i] == player) return 1;
+                if (input[i][i] != player) break;
+            }
+        }
+
+        if ((col + row) == input.length-1){
+            for (int i = 0; i < input.length; i++) {
+                if (i == (input.length-1) && input[i][input.length-i-1] == player) return 1;
+                if (input[i][input.length-i-1] != player) break;
+            }
+        }
+
         return 0;
     }
 }
