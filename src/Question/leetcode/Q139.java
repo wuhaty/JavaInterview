@@ -2,6 +2,8 @@ package Question.leetcode;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 public class Q139 {
@@ -44,10 +46,27 @@ public class Q139 {
         return dp[1][s.length()];
     }
 
-    public static  void main(String argc[]){
+    public boolean wordBreak2021(String s, List<String> wordDict) {
+        HashSet<String> set = new HashSet<>(wordDict);
+        boolean[] dp = new boolean[s.length()+1];
+        dp[0] = true;
+        for (int i = 1; i <= s.length(); i++) {
+            for (int j = 0; j < i; j++) {
+                if ( dp[j] && set.contains(s.substring(j,i))) {
+                    dp[i] = true;
+                    break;
+                }
+            }
+        }
+        return dp[s.length()];
+    }
+
+
+    public static void main(String argc[]){
+        Q139 q = new Q139();
         List<String> list =new ArrayList<>();
-        list.add("leet");
-        list.add("code");
-        System.out.println(wordBreak("leetcode",list));
+        list.add("aaaa");
+        list.add("aaa");
+        System.out.println(q.wordBreak2021("aaaaaaa",list));
     }
 }

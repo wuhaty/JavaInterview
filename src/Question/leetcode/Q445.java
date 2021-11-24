@@ -103,4 +103,48 @@ public class Q445 {
         }
         return h.next;
     }
+
+    public ListNode addTwoNumbers2021_2(ListNode l1, ListNode l2) {
+        Stack<ListNode> s1 = new Stack<>();
+        Stack<ListNode> s2 = new Stack<>();
+        Stack<ListNode> more = s1;
+        Stack<ListNode> less = s2;
+
+        ListNode p = l1,q = l2;
+        int count1= 0,count2=0;
+        while (p != null) {
+            s1.push(p);
+            p = p.next;
+            count1 ++;
+        }
+
+        while (q != null) {
+            s2.push(q);
+            q = q.next;
+            count2 ++;
+        }
+
+        if (count1<count2) {
+            more = s2;
+            less = s1;
+        }
+
+        int carrier = 0;
+        ListNode m = null;
+        while (more.size() > 0) {
+            m = more.pop();
+            ListNode l = (less.size() == 0? null:less.pop());
+
+            int sum = (m.val + (l == null?0:l.val) + carrier) ;
+            carrier = sum /10;
+            m.val = (sum%10);
+        }
+
+        if (carrier > 0) {
+            ListNode n = new ListNode(carrier);
+            n.next = m;
+            m = n;
+        }
+        return m;
+    }
 }
