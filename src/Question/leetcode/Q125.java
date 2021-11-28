@@ -7,7 +7,7 @@ public class Q125 {
 
     public static void main(String argc[]){
         Q125 q= new Q125();
-        System.out.println(q.isPalindrome("0P"));
+        System.out.println(q.isPalindrome2021("A man, a plan, a canal: Panama"));
     }
 
     public boolean isPalindrome(String s) {
@@ -47,5 +47,27 @@ public class Q125 {
     public boolean judge2(char c) {
         return ('a'<=c && c<='z')
                 || ('A'<=c && c<='Z');
+    }
+
+    public boolean isPalindrome2021(String s) {
+        int start =0,end =s.length()-1;
+
+        while (start < end) {
+            if (!Character.isLetterOrDigit(s.charAt(start))) {
+                start ++;
+                continue;
+            }
+
+            if (!Character.isLetterOrDigit(s.charAt(end))) {
+                end --;
+                continue;
+            }
+
+            if (Character.toLowerCase(s.charAt(start)) != Character.toLowerCase(s.charAt(end))) return false;
+            start ++;
+            end --;
+        }
+
+        return true;
     }
 }

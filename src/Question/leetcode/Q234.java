@@ -1,5 +1,7 @@
 package Question.leetcode;
 
+import java.util.List;
+
 /**
  * Created by gump on 2017/8/26.
  */
@@ -36,6 +38,43 @@ public class Q234 {
             head = temp;
         }
 
+        return pre;
+    }
+
+
+    public boolean isPalindrome2021(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while (fast!= null) {
+            slow = slow.next;
+
+            if (fast.next == null){
+                break;
+            }else {
+                fast = fast.next.next;
+            }
+        }
+
+
+        ListNode reverse = reverse2021(slow);
+        while (head!= null && reverse != null){
+            if (head.val != reverse.val) return false;
+            head = head.next;
+            reverse = reverse.next;
+        }
+
+        return true;
+    }
+
+    private ListNode reverse2021(ListNode slow) {
+        ListNode pre = null;
+        while (slow != null) {
+            ListNode next = slow.next;
+            slow.next = pre;
+            pre = slow;
+            slow = next;
+        }
         return pre;
     }
 }
