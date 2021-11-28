@@ -43,4 +43,39 @@ public class Q227 {
         }
         return result;
     }
+
+    public int calculate2021(String s) {
+        Stack<Integer> stack = new Stack<>();
+
+        char cs[] = s.toCharArray();
+
+        int n1 = 0;
+        char preOp = '+';
+        for (int i = 0; i < cs.length; i++) {
+              char c = cs[i];
+              if (c>='0'& c<='9'){
+                  n1 = (n1*10+(c-'0'));
+              }
+
+              if (c=='+'||c=='-'||c=='*'||c=='/' || i==cs.length-1){
+                  if (preOp=='+'){
+                      stack.push(n1);
+                  }else if(preOp=='-'){
+                      stack.push(-n1);
+                  }else if (preOp=='*'){
+                      stack.push(stack.pop()*n1);
+                  }else if (preOp=='/'){
+                      stack.push(stack.pop()/n1);
+                  }
+                  n1 = 0;
+                  preOp = c;
+              }
+        }
+
+        int res = 0;
+        while (!stack.isEmpty()){
+            res += stack.pop();
+        }
+        return res;
+    }
 }
