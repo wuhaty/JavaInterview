@@ -64,4 +64,32 @@ public class Q450 {
         }
         return root;
     }
+
+
+    public TreeNode deleteNode2021_2(TreeNode root, int key) {
+        if (root == null) return null;
+
+        if (key < root.val) {
+            root.left = deleteNode2021_2(root.left,key);
+        }else if (key > root.val){
+            root.right = deleteNode2021_2(root.right,key);
+        }else {
+            if (root.left == null && root.right == null) return null;
+            if (root.right == null) return root.left;
+            TreeNode pre = root;
+            TreeNode rightMin = root.right;
+            while (rightMin.left!=null){
+                pre = rightMin;
+                rightMin = rightMin.left;
+            }
+            rightMin.left = root.left;
+            if (rightMin!=root.right){
+                pre.left = rightMin.right;
+                rightMin.right = root.right;
+            }
+            return rightMin;
+        }
+
+        return root;
+    }
 }

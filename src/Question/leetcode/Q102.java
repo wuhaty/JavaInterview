@@ -57,4 +57,27 @@ public class Q102 {
 
         return res;
     }
+
+    public List<List<Integer>> levelOrder2021(TreeNode root) {
+        Queue<TreeNode> q = new LinkedList<>();
+        List<List<Integer>> res = new LinkedList<>();
+
+        if (root  ==null)return res;
+
+        q.offer(root);
+        while (!q.isEmpty()){
+            int size = q.size();
+            List<Integer> l = new LinkedList<>();
+            while (size>0){
+                TreeNode n = q.poll();
+                l.add(n.val);
+
+                if (n.left != null) q.offer(n.left);
+                if (n.right != null) q.offer(n.right);
+                size--;
+            }
+            res.add(l);
+        }
+        return res;
+    }
 }

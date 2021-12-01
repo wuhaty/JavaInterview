@@ -1,5 +1,6 @@
 package Question.leetcode;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -38,5 +39,35 @@ public class Q46 {
             nums[i] = nums[j];
             nums[j] = t;
         }
+    }
+
+    public List<List<Integer>> permute2021(int[] nums) {
+        List<List<Integer>> res = new LinkedList<>();
+
+        backtrack(res,nums,0);
+
+        return res;
+    }
+
+    private void backtrack(List<List<Integer>> res, int[] nums, int i) {
+        if (i == nums.length) {
+            List<Integer> l = new ArrayList<>(nums.length);
+            for (int n:nums) {
+                l.add(n);
+            }
+            res.add(l);
+        }
+
+        for (int j = i; j < nums.length; j++) {
+            swap(nums,i,j);
+            backtrack(res,nums,i+1);
+            swap(nums,i,j);
+        }
+    }
+
+    private void swap(int[] nums,int i, int j){
+        int t = nums[i];
+        nums[i] = nums[j];
+        nums[j] = t;
     }
 }
