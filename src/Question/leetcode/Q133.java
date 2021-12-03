@@ -65,5 +65,35 @@ public class Q133 {
         return clone;
     }
 
+    public static void main(String[] args) {
+        Q133 q = new Q133();
+        Node n1 = new Node();
+        Node n2 = new Node();
+        Node n3 = new Node();
+        Node n4 = new Node();
 
+        n1.neighbors.add(n2);
+        n1.neighbors.add(n4);
+        n2.neighbors.add(n1);
+        n2.neighbors.add(n3);
+        n3.neighbors.add(n2);
+        n3.neighbors.add(n4);
+        n4.neighbors.add(n1);
+        n4.neighbors.add(n3);
+        q.cloneGraph2021_2(n1);
+    }
+
+
+    public Node cloneGraph2021_2(Node node) {
+        if (node == null) return null;
+        if (m.containsKey(node.val)) return m.get(node.val);
+
+        m.put(node.val,new Node(node.val));
+
+        for (int i = 0; i < node.neighbors.size(); i++) {
+            m.get(node.val).neighbors.add(cloneGraph2021_2(node.neighbors.get(i)));
+        }
+
+        return m.get(node.val);
+    }
 }
