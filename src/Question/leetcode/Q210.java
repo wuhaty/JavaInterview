@@ -38,11 +38,49 @@ public class Q210 {
         return i==numCourses?result: new int[0];
     }
 
+    public int[] findOrder2021(int numCourses, int[][] prerequisites) {
+        int m[][] = new int[numCourses][numCourses];
+        int indegree[] = new int[numCourses];
+        int[] res = new int[numCourses];
+        for (int[] edge:prerequisites) {
+            int from = edge[1];
+            int to = edge[0];
+            m[from][to] =1;
+            indegree[to] ++;
+        }
 
+        Queue<Integer> s = new LinkedList<>();
+
+        for (int i = 0; i < numCourses; i++) {
+            if (indegree[i] == 0) {
+                s.offer(i);
+            }
+        }
+
+        int count = 0;
+        while (!s.isEmpty()){
+            Integer from = s.poll();
+            res[count] = from;
+            int[] edges = m[from];
+            for (int i = 0; i < edges.length; i++) {
+                int to = i;
+                if (m[from][to] == 1) {
+                    indegree[to] --;
+                    if (indegree[to] == 0) {
+                        s.offer(to);
+                    }
+                }
+            }
+            count++;
+        }
+        return count==numCourses?res:new int[0];
+    }
 
     public static void main(String argc[]){
         Q210 q =new Q210();
-        int d[][]={{1,0}};
-        System.out.println(Arrays.toString(q.findOrder(2, d)));
+//        int d[][]={{1,0}};
+        int d[][]={{1,0},{2,0},{3,1},{3,2}};
+
+        System.out.println(Arrays.toString(q.findOrder2021(4, d)));
     }
 }
