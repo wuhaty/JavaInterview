@@ -2,6 +2,7 @@ package Question.leetcode;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Set;
 
 public class Q1647 {
 
@@ -56,5 +57,29 @@ public class Q1647 {
         }
 
         return count;
+    }
+
+    public int minDeletions2021(String s) {
+        char cs[] = s.toCharArray();
+        int[] freq = new int[26];
+        for (char c:cs) {
+            freq[c-'a'] ++;
+        }
+
+        Set<Integer> freqs = new HashSet<>();
+        int ans = 0;
+        for (int f:freq) {
+            if (f>0){
+                while (freqs.contains(f)){
+                    f--;
+                    ans++;
+                }
+
+                if (f>0){
+                    freqs.add(f);
+                }
+            }
+        }
+        return ans;
     }
 }
