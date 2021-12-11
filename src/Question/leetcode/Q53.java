@@ -28,4 +28,20 @@ public class Q53 {
 
         return max;
     }
+
+
+    public int maxSubArray_2021_2(int[] nums) {
+        //dp[i]=Math.max(nums[i],nums[i]+dp[i-1]);
+
+        int pre = 0;
+        int max = Integer.MIN_VALUE;
+
+        for (int i = 0; i < nums.length; i++) {
+            int score = Math.max(nums[i],nums[i]+pre);
+            pre = score;
+            max = Math.max(score,max);
+        }
+
+        return max;
+    }
 }

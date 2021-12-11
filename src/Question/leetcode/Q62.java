@@ -35,4 +35,25 @@ public class Q62 {
         return k;
 
     }
+
+    public int uniquePaths2021(int m, int n) {
+        int dp[][] = new int[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i==0 && j==0) {
+                    dp[i][j] = 1;
+                    continue;
+                }
+                int up = i-1;
+                int left = j-1;
+
+                int upWay = (up < 0 )?0:dp[i-1][j];
+                int leftWay = (left<0 )?0:dp[i][j-1];
+
+                dp[i][j] = upWay+leftWay;
+            }
+        }
+
+        return dp[m-1][n-1];
+    }
 }

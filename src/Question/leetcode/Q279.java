@@ -50,6 +50,19 @@ public class Q279 {
         return result;
     }
 
+    public int numSquares2021(int n) {
+        int dp[] = new int[n+1];
 
+        for (int i = 1; i <=n ; i++) {
+            int min = Integer.MAX_VALUE;
+            for (int j = 1; j*j <= i; j++) {
+                min = Math.min(min,dp[i-j*j]);
+            }
+            //important , e.g for n =8, iterate to 4 , then min = dp[4], 4 has already been chosen so it's 1+d[4] = 2
+            dp[i] = min+1;
+        }
+
+        return dp[n+1];
+    }
 
 }

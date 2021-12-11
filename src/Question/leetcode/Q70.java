@@ -31,4 +31,18 @@ public class Q70 {
 
         return res;
     }
+
+    public int climbStairs2021(int n) {
+        int p = 1;
+        int q = 1;
+        if (n==1) return p;
+        int sum = 0;
+
+        for (int i = 2; i <= n; i++) {
+            sum = p + q;
+            p = q;
+            q= sum;
+        }
+        return sum;
+    }
 }
