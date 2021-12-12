@@ -22,7 +22,6 @@ public class Q139 {
         return f[s.length()];
     }
 
-
     public static boolean wordBreakOri(String s, List<String> wordDict) {
 
         boolean dp[][] =new boolean[s.length()+1][s.length()+1];
@@ -61,6 +60,22 @@ public class Q139 {
         return dp[s.length()];
     }
 
+    public boolean wordBreak2021_2(String s, List<String> wordDict) {
+        HashSet<String> set = new HashSet<>(wordDict);
+        boolean dp[] = new boolean[set.size()+1];
+        dp[0] = true;
+
+        for (int i = 1; i <= s.length(); i++) {
+            for (int j = 0; j <i; j++) {
+                if (dp[j] && set.contains(s.substring(j,i))){
+                    dp[i] = true;
+                    break;
+                }
+            }
+        }
+
+        return dp[s.length()];
+    }
 
     public static void main(String argc[]){
         Q139 q = new Q139();
