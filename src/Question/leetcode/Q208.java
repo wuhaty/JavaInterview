@@ -42,7 +42,6 @@ public class Q208 {
         return node;
     }
 
-
     public boolean startsWith(String prefix) {
         return searchPrefix(prefix) != null;
     }
