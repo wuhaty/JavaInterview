@@ -28,4 +28,24 @@ public class Q125 {
         }
         return true;
     }
+
+    public boolean isPalindrome2021(String s) {
+        char[] cs = s.toLowerCase().toCharArray();
+        int l=0,r=s.length()-1;
+
+        while (l<r){
+            if (!Character.isLetterOrDigit(cs[l])) {
+                l++;
+                continue;
+            }
+            if (!Character.isLetterOrDigit(cs[r])) {
+                r--;
+                continue;
+            }
+
+            if (cs[l] != cs[r]) return false;
+            l++;r--;
+        }
+        return true;
+    }
 }

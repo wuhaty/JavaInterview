@@ -35,4 +35,27 @@ public class Q917 {
 
         return new String(cs);
     }
+
+    public String reverseOnlyLetters2021(String s) {
+        char[] cs = s.toCharArray();
+        int l =0,r= s.length()-1;
+
+        while (l<r){
+            if (!Character.isLetter(cs[l])){
+                l++;
+                continue;
+            }
+            if (!Character.isLetter(cs[r])){
+                r--;
+                continue;
+            }
+
+            char t = cs[l];
+            cs[l] = cs[r];
+            cs[r] = t;
+            l++;r--;
+        }
+
+        return new String(cs);
+    }
 }
