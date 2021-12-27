@@ -7,7 +7,7 @@ public class Q69 {
 
     public static void main(String[] args) {
         Q69 q = new Q69();
-        q.mySqrt(8);
+        q.mySqrt2021(0);
     }
 
 
@@ -22,6 +22,24 @@ public class Q69 {
                 ans = mid;
                 l = mid + 1;
             } else {
+                r = mid - 1;
+            }
+        }
+
+        return ans;
+    }
+
+    public int mySqrt2021(int x) {
+        int l = 0, r = x;
+
+        int ans = -1;
+        while (l<r) {
+            int mid = (l+r)/2;
+
+            if ((long) mid * mid <= x) {
+                ans = mid;
+                l = mid + 1;
+            }else {
                 r = mid - 1;
             }
         }
