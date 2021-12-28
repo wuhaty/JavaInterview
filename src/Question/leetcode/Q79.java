@@ -11,9 +11,10 @@ public class Q79 {
 
     public static void main(String[] args) {
         Q79 q = new Q79();
-        char[][] t= {{'A','B','C','E'},{'S','F','C','S'},{'A','D','E','E'}};
+//        char[][] t= {{'A','B','C','E'},{'S','F','C','S'},{'A','D','E','E'}};
+        char[][] t= {{'a'}};
 
-        q.exist(t,"ABCCED");
+        q.exist2021(t,"a");
     }
 
     public boolean exist(char[][] board, String word) {
@@ -46,6 +47,41 @@ public class Q79 {
             visited[i][j] = false;
         }
 
+        return false;
+    }
+
+    public boolean exist2021(char[][] board, String word) {
+        int n = board.length;
+        int m = board[0].length;
+
+        boolean visited[][] = new boolean[n][m];
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                if (dfs(board,word.toCharArray(),i,j,0,visited)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean dfs(char[][] board, char[] cs, int r, int c, int index, boolean[][] visited) {
+        if (index == cs.length){
+            return true;
+        }
+        if (r<0 || c <0 || r>=board.length || c>=board[0].length) return false;
+        if (visited[r][c]) return false;
+
+
+        visited[r][c] = true;
+        if (board[r][c] == cs[index]){
+            for (int dir[]:dirs) {
+                if (dfs(board,cs,r+dir[0],c+dir[1],index+1,visited)){
+                    return true;
+                }
+            }
+        }
+        visited[r][c] = false;
         return false;
     }
 }
