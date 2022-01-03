@@ -1,5 +1,7 @@
 package Question.leetcode;
 
+import Question.leetcode.common.ListNode;
+
 import java.util.Comparator;
 import java.util.PriorityQueue;
 

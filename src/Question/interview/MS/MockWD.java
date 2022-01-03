@@ -1,6 +1,6 @@
 package Question.interview.MS;
 
-public class Wangding {
+public class MockWD {
 
 
     class ListNode {

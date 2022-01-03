@@ -1,5 +1,7 @@
 package Question.leetcode;
 
+import Question.leetcode.common.ListNode;
+
 import java.util.Random;
 
 public class Q92 {

@@ -1,5 +1,7 @@
 package Question.leetcode;
 
+import Question.leetcode.common.ListNode;
+
 public class Q142 {
     public ListNode detectCycle(ListNode head) {
         if (head == null) return null;

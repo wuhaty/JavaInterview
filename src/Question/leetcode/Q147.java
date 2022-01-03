@@ -1,5 +1,7 @@
 package Question.leetcode;
 
+import Question.leetcode.common.ListNode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,11 +9,7 @@ import java.util.List;
  * Created by gump on 2017/5/2.
  */
 
-class ListNode {
-    int val;
-    ListNode next;
-    ListNode(int x) { val = x; }
-}
+
 public class Q147 {
     public ListNode insertionSortListTimeConsuming(ListNode head) {
         if(head==null) return null;

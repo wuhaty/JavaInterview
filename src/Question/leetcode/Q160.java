@@ -1,5 +1,7 @@
 package Question.leetcode;
 
+import Question.leetcode.common.ListNode;
+
 public class Q160 {
 
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
