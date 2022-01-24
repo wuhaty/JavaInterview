@@ -65,7 +65,6 @@ public class Q450 {
         return root;
     }
 
-
     public TreeNode deleteNode2021_2(TreeNode root, int key) {
         if (root == null) return null;
 
