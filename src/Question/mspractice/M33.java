@@ -1,9 +1,9 @@
 package Question.mspractice;
 
-public class M {
+public class M33 {
 
     public static void main(String[] args) {
-        M m = new M();
+        M33 m = new M33();
         m.search(new int[]{4,5,6,7,0,1,2},0);
     }
 
