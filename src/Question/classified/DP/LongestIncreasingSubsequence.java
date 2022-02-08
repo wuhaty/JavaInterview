@@ -9,8 +9,9 @@ public class LongestIncreasingSubsequence {
 
     public static void main(String argc[]){
         LongestIncreasingSubsequence q = new LongestIncreasingSubsequence();
-        int data[] = {10,9,2,5,3,7,101,18};
-        q.lengthOfLISBinary(data);
+        int data[] = {7,7,7,7,7,7,7};
+//        int data[] = {10,9,2,5,3,7,21,18};
+        q.lengthOfLIS(data);
     }
 
     public int lengthOfLISBinary(int[] nums) {
@@ -25,8 +26,6 @@ public class LongestIncreasingSubsequence {
         }
         return len;
     }
-
-
 
     public int lengthOfLISDP(int[] nums) {
         if (nums == null || nums.length ==0 )return 0;
@@ -43,5 +42,27 @@ public class LongestIncreasingSubsequence {
             result = Math.max(dp[i],result);
         }
         return result;
+    }
+
+    public int lengthOfLIS(int[] nums) {
+        int n = nums.length;
+        int dp[] = new int[n];
+        int len = 0;
+        for (int i = 0; i < n; i++) {
+            int l = 0, r = len;
+            while (l<r){
+                int mid = (l+r)/2;
+
+                if (dp[mid] >= nums[i]){
+                    r = mid;
+                }else {
+                    l = mid + 1;
+                }
+            }
+            dp[l] = nums[i];
+            if (l == len) len++;
+        }
+
+        return len;
     }
 }
