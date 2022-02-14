@@ -2,6 +2,7 @@ package Question.leetcode;
 
 import Question.leetcode.common.TreeNode;
 
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Stack;
 
@@ -27,7 +28,6 @@ public class Q98 {
         }
         return true;
     }
-
 
     public static void main(String[] args) {
         Q98 q = new Q98();
@@ -71,5 +71,24 @@ public class Q98 {
         if (root.val <= lower || root.val >= upper) return false;
 
         return helper(root.left,lower,root.val) && helper(root.right,root.val,upper);
+    }
+
+    public boolean isValidBST2022(TreeNode root) {
+        Deque<TreeNode> s = new LinkedList<>();
+        Long pre = Long.MIN_VALUE;
+
+        while (root != null || !s.isEmpty()){
+            while (root != null){
+                s.push(root);
+                root = root.left;
+            }
+
+            root = s.pop();
+            if (root.val <= pre) return false;
+            pre = (long) root.val;
+            root = root.right;
+        }
+
+        return true;
     }
 }

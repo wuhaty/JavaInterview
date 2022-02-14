@@ -39,4 +39,23 @@ public class Q491 {
             backtrack(nums,index+1,last);
         }
     }
+
+    private void backtrack2022(int[] nums,int index,int last) {
+        if (index == nums.length) {
+            if (l.size()>=2){
+                res.add(new ArrayList<>(l));
+            }
+            return;
+        }
+
+        if (index > last){
+            l.add(nums[index]);
+            backtrack2022(nums,index+1,nums[index]);
+            l.remove(l.size()-1);
+        }
+
+        if (nums[index] != last){
+            backtrack2022(nums,index+1,last);
+        }
+    }
 }
